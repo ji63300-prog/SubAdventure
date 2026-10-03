@@ -1,0 +1,7 @@
+<Solution>
+  <Configurations>
+    <Platform Name="x64" />
+    <Platform Name="x86" />
+  </Configurations>
+  <Project Path="SubAdventure/SubAdventure.vcxproj" Id="ac6f2f10-43f7-445c-bd63-ae78e6443560" />
+</Solution>
