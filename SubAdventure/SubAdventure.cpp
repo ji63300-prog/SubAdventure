@@ -56,6 +56,15 @@ public:
     }
 };
 
+void mainMenu() {
+    system("cls");
+	cout << "Welcome to Sub Adventure!" << endl;
+    cout << "Collect and sell as much treasure as you can without running out of oxygen!" << endl;
+    cout << "Use WASD or arrow keys to navigate the deep sea!" << endl;
+	cout << "Press any key to begin" << endl;
+    _getch();
+}
+
 
 void genMap(vector<vector<char>>& map) {
     for (int i = 0; i < map.size(); i++) {
@@ -89,6 +98,18 @@ void printMap(vector<vector<char>>& map) {
     }
 }
 
+
+bool boundary(vector<vector<char>>& map, int futureX, int futureY) {
+	if (futureY < 0 || futureY >= map.size() || futureX < 0 || futureX >= map[0].size()) {
+		return false;
+	}
+
+    if (map[futureY][futureX] == '{' || map[futureY][futureX] == '}' || map[futureY][futureX] == '_') {
+        cout << "You are trying to swim out of bounds! Please try another input." << endl;
+        return false;
+    }
+	return true;
+}
 
 
 void treasure(vector<vector<char>>& map) {
@@ -193,7 +214,8 @@ int main() {
     map[player.getY()][player.getX()] = player.getLogo();
     //spawns sub
 
-    cout << "Use WASD or arrow keys to begin" << endl;
+    mainMenu();
+    //cout << "Use WASD or arrow keys to begin" << endl;
 
     while (gameOver == false) {
         //ogX = player.getX();
@@ -212,31 +234,47 @@ int main() {
         if (input == 224) {
 			input = _getch();
             if(input == 72) {  // Up arrow
-                player.up();
+                if(boundary(map, player.getX(), player.getY() - 1)) {
+                    player.up();
+                }
             }
 			else if (input == 80) {  // Down arrow
-				player.down();
+				if(boundary(map, player.getX(), player.getY() + 1)) {
+					player.down();
+				}
 			}
 			else if (input == 75) {  // Left arrow
-				player.left();
+				if(boundary(map, player.getX() - 1, player.getY())) {
+					player.left();
+				}
 			}
 			else if (input == 77) {  // Right arrow
-				player.right();
+				if(boundary(map, player.getX() + 1, player.getY())) {
+					player.right();
+				}
 			}
         }
         else {
 
             if (input == 'w' || input == 'W') {
-                player.up();
+                if(boundary(map, player.getX(), player.getY() - 1)) {
+                    player.up();
+                }
             }
             else if (input == 's' || input == 'S') {
-                player.down();
+                if(boundary(map, player.getX(), player.getY() + 1)) {
+                    player.down();
+                }
             }
             else if (input == 'a' || input == 'A') {
-                player.left();
+                if(boundary(map, player.getX() - 1, player.getY())) {
+                    player.left();
+                }
             }
             else if (input == 'd' || input == 'D') {
-                player.right();
+                if(boundary(map, player.getX() + 1, player.getY())) {
+                    player.right();
+                }
             }
             else {
 				cout << "Invalid input. Please use WASD or arrow keys to move." << endl;
